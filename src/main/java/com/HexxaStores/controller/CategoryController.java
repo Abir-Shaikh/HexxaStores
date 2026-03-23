@@ -32,7 +32,7 @@ public class CategoryController {
     public ResponseEntity<String> createCategory(@RequestBody Category category){
         categoryService.CreateCategories(category);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Category added Succesfully");
+                .body("Category added Successfully");
     }
 
     @DeleteMapping("/api/admin/categories/{categoryId}")
@@ -47,13 +47,13 @@ public class CategoryController {
     }
 
     @PutMapping("/api/public/categories/{categoryId}")
-    public ResponseEntity<String> updateCategory(@RequestBody Category category ,
+    public ResponseEntity<Category> updateCategory(@RequestBody Category category ,
                                                  @PathVariable Long categoryId){
         try {
-            String savedCategory = categoryService.updateCategory(category , categoryId);
+            Category savedCategory = categoryService.updateCategory(category , categoryId);
             return ResponseEntity.ok(savedCategory);
         }catch (ResponseStatusException e){
-            return new ResponseEntity<>(e.getReason() , e.getStatusCode());
+            return ResponseEntity.status(e.getStatusCode()).body(null);
         }
     }
 
