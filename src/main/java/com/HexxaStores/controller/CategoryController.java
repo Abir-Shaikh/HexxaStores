@@ -2,6 +2,7 @@ package com.HexxaStores.controller;
 
 import com.HexxaStores.model.Category;
 import com.HexxaStores.service.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -29,7 +30,7 @@ public class CategoryController {
     }
 
     @PostMapping("/api/public/categories")
-    public ResponseEntity<String> createCategory(@RequestBody Category category){
+    public ResponseEntity<String> createCategory(@Valid @RequestBody Category category){
         categoryService.CreateCategories(category);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("Category added Successfully");
