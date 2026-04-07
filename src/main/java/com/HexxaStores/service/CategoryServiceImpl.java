@@ -1,5 +1,6 @@
 package com.HexxaStores.service;
 
+import com.HexxaStores.exceptions.APIException;
 import com.HexxaStores.exceptions.ResourceNotFoundException;
 import com.HexxaStores.model.Category;
 import com.HexxaStores.repositories.CategoryRepository;
@@ -27,7 +28,10 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public void CreateCategories(Category category) {
-
+        Category savedCategory = categoryRepository.findByCategoryName(category.getCategoryName());
+        if (savedCategory != null) {
+            throw new APIException("Category with the name " + category.getCategoryName() + " already exist");
+        }
         //category.setCategoryId(nextID++);
         categoryRepository.save(category);
     }
