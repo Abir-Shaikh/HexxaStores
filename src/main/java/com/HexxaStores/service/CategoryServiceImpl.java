@@ -1,5 +1,6 @@
 package com.HexxaStores.service;
 
+import com.HexxaStores.exceptions.ResourceNotFoundException;
 import com.HexxaStores.model.Category;
 import com.HexxaStores.repositories.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public String deleteCategory(Long categoryId) {
         Category deleteCategory = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND , "Resource not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category" , "categoryId" , categoryId));
 
 
 
@@ -54,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService{
     public Category updateCategory(Category category, Long categoryId) {
 
         Category savedCategory = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND , "Resource not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category" , "categoryId" , categoryId));
 
         category.setCategoryId(categoryId);
         savedCategory = categoryRepository.save(category);
