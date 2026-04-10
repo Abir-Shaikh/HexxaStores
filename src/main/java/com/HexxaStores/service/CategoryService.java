@@ -1,11 +1,12 @@
 package com.HexxaStores.service;
 
 import com.HexxaStores.model.Category;
+import com.HexxaStores.payload.CategoryResponse;
 
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getAllCategories();
+    CategoryResponse getAllCategories();
     void CreateCategories(Category category);
 
     String deleteCategory(Long categoryId);

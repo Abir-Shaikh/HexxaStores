@@ -1,6 +1,7 @@
 package com.HexxaStores.controller;
 
 import com.HexxaStores.model.Category;
+import com.HexxaStores.payload.CategoryResponse;
 import com.HexxaStores.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,9 @@ public class CategoryController {
     }
 
     @GetMapping("/api/public/categories")
-    public ResponseEntity<List<Category>> getCategories(){
-        List<Category> allCategories = categoryService.getAllCategories();
-        return ResponseEntity.ok(allCategories);
+    public ResponseEntity<CategoryResponse> getCategories(){
+        CategoryResponse categoryResponse = categoryService.getAllCategories();
+        return ResponseEntity.ok(categoryResponse);
     }
 
     @PostMapping("/api/public/categories")
