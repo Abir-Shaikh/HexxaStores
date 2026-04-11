@@ -1,18 +1,14 @@
 package com.HexxaStores.controller;
 
 import com.HexxaStores.model.Category;
+import com.HexxaStores.payload.CategoryDTO;
 import com.HexxaStores.payload.CategoryResponse;
 import com.HexxaStores.service.CategoryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class CategoryController {
@@ -31,10 +27,9 @@ public class CategoryController {
     }
 
     @PostMapping("/api/public/categories")
-    public ResponseEntity<String> createCategory(@Valid @RequestBody Category category){
-        categoryService.CreateCategories(category);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Category added Successfully");
+    public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO){
+        CategoryDTO savedCategoryDTO = categoryService.CreateCategories(categoryDTO);
+        return new ResponseEntity<>(savedCategoryDTO , HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/admin/categories/{categoryId}")
