@@ -1,5 +1,6 @@
 package com.HexxaStores.controller;
 
+import com.HexxaStores.configuration.AppConstants;
 import com.HexxaStores.payload.CategoryDTO;
 import com.HexxaStores.payload.CategoryResponse;
 import com.HexxaStores.service.CategoryService;
@@ -26,8 +27,8 @@ public class CategoryController {
 
     @GetMapping("/api/public/categories")
     public ResponseEntity<CategoryResponse> getCategories(
-            @RequestParam(name = "pageNumber") Integer pageNumber,
-            @RequestParam(name = "pageSize")  Integer pageSize
+            @RequestParam(name = "pageNumber" , defaultValue = AppConstants.PAGE_NUMBER , required = false) Integer pageNumber,
+            @RequestParam(name = "pageSize" , defaultValue = AppConstants.PAGE_SIZE , required = false)  Integer pageSize
     ){
         CategoryResponse categoryResponse = categoryService.getAllCategories(pageNumber, pageSize);
         return ResponseEntity.ok(categoryResponse);
