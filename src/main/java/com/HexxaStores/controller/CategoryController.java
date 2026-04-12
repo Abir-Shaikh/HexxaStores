@@ -19,6 +19,11 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+    @GetMapping("/api/echo")
+    public ResponseEntity<String> echoedMessage(@RequestParam(name = "message" , required = false , defaultValue = "This too shall pass") String message){
+        return new ResponseEntity<>("Echoed Message : " + message , HttpStatus.OK);
+    }
+
     @GetMapping("/api/public/categories")
     public ResponseEntity<CategoryResponse> getCategories(){
         CategoryResponse categoryResponse = categoryService.getAllCategories();
